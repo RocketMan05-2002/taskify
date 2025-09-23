@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Taskify3Application<taskify3>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.todo2.taskify3.Taskify3Application",
+            "projectName": "taskify3",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
