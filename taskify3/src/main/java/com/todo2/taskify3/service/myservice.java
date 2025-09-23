@@ -12,13 +12,18 @@ public class myservice {
     @Autowired
     myrepo repo;
 
-    public String adduser(User u) {
+    public User adduser(User user) {
         User newUser = new User(); // new user created
         // json se aaya user isme set
-        newUser.setUserName(u.getUserName());
-        newUser.setPassword(u.getPassword());
-        repo.save(newUser); //new user saved at database
-        return "User Added";
+        newUser.setUserName(user.getUserName());
+        newUser.setPassword(user.getPassword());
+        try {
+            repo.save(newUser);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+         //new user saved at database
+        return newUser;
     }
 
     public List<User> getAllUsers(){
