@@ -2,17 +2,16 @@ package com.todo2.taskify3.service;
 
 
 import com.todo2.taskify3.entities.User;
-import com.todo2.taskify3.repository.myrepo;
+import com.todo2.taskify3.repository.myRepo;
 
-import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class myservice {
+public class myService {
     @Autowired
-    myrepo repo;
+    myRepo repo;
 
     public User adduser(User user) {
         User newUser = new User(); // new user created

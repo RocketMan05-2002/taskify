@@ -1,7 +1,10 @@
 package com.todo2.taskify3.service;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.todo2.taskify3.DTO.Status;
+import com.todo2.taskify3.entities.ClipStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,7 @@ public class clipService {
     clipRepo clip; // kyuki this is clipservice, isiliye khudka repo
 
     @Autowired
-    myservice mysvc; // here, we have to call the service. functions bhi use kar sakenge
+    myService msvc; // here, we have to call the service. functions bhi use kar sakenge
 
     // add a clip-todo
     public Clip addClip(Clip c){
@@ -34,7 +37,28 @@ public class clipService {
 
     // get all clips
     public List<Clip> getAllClipsForAUser(String userId){
-        User user = mysvc.getUser(userId);
+        User user = msvc.getUser(userId);
         return user.getClips();
+    }
+
+    //delete clip
+    public void deleteClip(String clipId){
+        if (clip.existsById(clipId)) {
+            clip.deleteById(clipId);
+        } else {
+            throw new RuntimeException("Clip not found with id: " + clipId);
+        }
+    }
+
+    public void updateClip(String clipId, ClipStatus status) {
+        Optional<Clip> clipOptional = clip.findById(clipId);
+
+        if (clipOptional.isPresent()) {
+            Clip c = clipOptional.get();
+            c.setStatus(status);  // update status
+            clip.save(c); // persist changes
+        } else {
+            throw new RuntimeException("Clip not found with id: " + clipId);
+        }
     }
 }
