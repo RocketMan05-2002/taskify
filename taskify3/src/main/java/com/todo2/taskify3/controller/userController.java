@@ -1,7 +1,7 @@
 package com.todo2.taskify3.controller;
 
 import com.todo2.taskify3.entities.User;
-import com.todo2.taskify3.service.myservice;
+import com.todo2.taskify3.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +11,9 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/todo")
-public class mycontroller {
+public class userController {
     @Autowired
-    myservice service;
+    userService service;
 
     @PostMapping("/addUser")
     public ResponseEntity<User> addUser(@RequestBody User u) {

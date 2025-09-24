@@ -15,7 +15,7 @@ public class clipService {
     clipRepo clip; // kyuki this is clipservice, isiliye khudka repo
 
     @Autowired
-    myservice mysvc; // here, we have to call the service. functions bhi use kar sakenge
+    userService mysvc; // here, we have to call the service. functions bhi use kar sakenge
 
     // add a clip-todo
     public Clip addClip(Clip c){
