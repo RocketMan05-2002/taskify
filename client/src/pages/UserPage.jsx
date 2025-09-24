@@ -17,8 +17,9 @@ const UserPage = () => {
 
   return (
     <div className='text-white'>
-      <div className="bg-amber-950">
+      <div className="bg-amber-950 flex justify-between px-3 items-center">
         <h1 className='p-4 text-3xl text-amber-200'>ClipBoard.online</h1>
+        <button className='bg-amber-200 p-2 h-[40px] flex items-center justify-center border-2 border-amber-600 text-amber-950 font-medium hover:scale-105 hover:bg-amber-600 cursor-pointer'>Sign in</button>
       </div>
       <div className="flex flex-col bg-amber-200 gap-3 h-screen p-4 border-2 border-gray-700" >
         {
