@@ -1,23 +1,18 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import Card from './components/Card';
+import UserPage from './pages/UserPage';
+import ClipsPage from './pages/ClipsPage'
+import { Route, Routes } from 'react-router';
 
 const App = () => {
-  const {users} = useContext(AuthContext);
+  // const {users} = useContext(AuthContext);
   return (
-    <div className='text-white'>
-      <div className="bg-red-900">
-        <h1 className='p-4 font-large '>Todo application</h1>
-      </div>
-      <div className=" grid grid-cols-4 gap-4 bg-red-500 h-screen p-4 border-2 border-gray-700" >
-        {
-          users.map((user,ind)=>{
-            return <div key={user.id} className='bg-gray-500/30 mr-auto p-3 border-2 border-gray-950 h-[200px]'>
-              <Card userName={user.userName} />
-            </div>
-          })
-        }
-      </div>
+    <div>
+      <Routes>
+        <Route path='/' element={<UserPage />} />
+        <Route path='/clips' element={<ClipsPage/>} />
+      </Routes>
     </div>
   )
 }
