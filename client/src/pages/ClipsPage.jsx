@@ -10,6 +10,7 @@ const ClipsPage = () =>{
         {id:2, clipHeading:"Learn Maven", clipDescription:"Look up for some good java learning videos to hone java concepts to have clarity of what we are coding."},
         {id:3, clipHeading:"Learn Spring", clipDescription:"Look up for some good java learning videos to hone java concepts to have clarity of what we are coding."},
         {id:4, clipHeading:"Learn Springboot", clipDescription:"Look up for some good java learning videos to hone java concepts to have clarity of what we are coding."},
+        {id:5, clipHeading:"Learn Docker", clipDescription:"Look up for some good java learning videos to hone java concepts to have clarity of what we are coding."},
     ]
     const currentUser = "Abhi";
     return (
