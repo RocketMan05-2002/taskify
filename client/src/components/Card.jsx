@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Card = ({userName, todoText = "Complete this todo task asap", status = false}) => {
+const Card = ({userName, todoText = "Complete this todo asap", status = false}) => {
   return (
     <div className='flex flex-col gap-4 bg-indigo-700 border-2 p-2 border-gray-950 w-[300px]'>
         <div className='flex justify-between items-center'>

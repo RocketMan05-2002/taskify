@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div className='text-white'>
       <div className="bg-red-900">
-        <h1 className='p-4 font-large '>Todo application</h1>
+        <h1 className='p-4 text-3xl '>Clipboard.online</h1>
       </div>
       <div className=" grid grid-cols-4 gap-4 bg-red-500 h-screen p-4 border-2 border-gray-700" >
         {
