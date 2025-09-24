@@ -3,6 +3,8 @@ package com.todo2.taskify3.service;
 
 import com.todo2.taskify3.entities.User;
 import com.todo2.taskify3.repository.myrepo;
+
+import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +30,11 @@ public class myservice {
 
     public List<User> getAllUsers(){
         return repo.findAll();
+    }
+
+    // get a user
+    public User getUser(String userId){
+        return repo.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
     }
 }
