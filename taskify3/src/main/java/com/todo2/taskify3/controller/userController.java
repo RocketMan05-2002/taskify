@@ -3,7 +3,8 @@ package com.todo2.taskify3.controller;
 import com.todo2.taskify3.entities.ClipStatus;
 import com.todo2.taskify3.entities.User;
 import com.todo2.taskify3.service.clipService;
-import com.todo2.taskify3.service.myService;
+import com.todo2.taskify3.service.userService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ import java.util.List;
 @RequestMapping("/todo")
 public class userController {
     @Autowired
-    myService service;
+    userService service;
 
     @Autowired
     clipService clipService;
