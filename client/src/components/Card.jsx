@@ -1,21 +1,54 @@
-import React from 'react'
+import React, { useState } from 'react';
 
-const Card = ({ clipHeading, clipDescription = "Complete this todo asap", status = false}) => {
+const Card = ({ clipHeading, clipDescription = "Complete this todo asap" }) => {
+  const [status, setStatus] = useState("start");
+
+  const handleToggle = (newStatus) => {
+    if (status === 'start' || status !== newStatus) {
+      setStatus(newStatus);
+    }
+  };
+
   return (
-    <div className='flex flex-col gap-4 bg-indigo-700 border-2 p-2 border-gray-950 w-[300px] hover:scale-102 cursor-pointer hover:bg-indigo-600'>
-        <div className='flex justify-between items-center'>
-            <h1>{clipHeading}</h1>
-            <h1 className='bg-red-900 border-1 p-1 border-gray-950 rounded-xl'>{status === true?"Completed":"Pending"}</h1>
-        </div>
-        <div className="bottom">
-            <h1>{clipDescription}</h1>
-        </div>
-        <div className='flex flex-start gap-2 items-center'>
-          <button className='bg-red-900 border-1 p-1 border-gray-950 rounded-xl'>Delete</button>
-          <button className='bg-red-900 border-1 p-1 border-gray-950 rounded-xl'>Mark as Done</button>
-        </div>
-    </div>
-  )
-}
+    <div className="flex flex-col gap-3 p-4 w-[300px] bg-gray-800 border border-gray-700 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 hover:scale-105 cursor-pointer">
+      
+      {/* Header */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-lg font-bold text-gray-200">{clipHeading}</h1>
+        <span className={`px-2 py-1 rounded-md text-sm font-medium 
+          ${status === "start" ? "bg-gray-700 text-gray-300" : status === "pending" ? "bg-yellow-500 text-black" : "bg-green-500 text-black"}`}>
+          {status === "start" ? "Start" : status === "pending" ? "Pending" : "Done"}
+        </span>
+      </div>
 
-export default Card
+      {/* Description */}
+      <p className="text-gray-300 text-sm">{clipDescription}</p>
+
+      {/* Toggle Slab */}
+      <div className="flex justify-between items-center gap-2 mt-2">
+        <div className="flex bg-gray-700 rounded-full overflow-hidden border border-gray-600">
+          <button
+            className={`px-4 py-1 transition-all duration-200 font-medium 
+              ${status === 'done' ? 'bg-green-500 text-black' : 'text-gray-300'}`}
+            onClick={() => handleToggle('done')}
+          >
+            Done
+          </button>
+          <button
+            className={`px-4 py-1 transition-all duration-200 font-medium 
+              ${status === 'pending' ? 'bg-yellow-500 text-black' : 'text-gray-300'}`}
+            onClick={() => handleToggle('pending')}
+          >
+            Pending
+          </button>
+        </div>
+
+        <button className="px-3 py-1 bg-red-600 text-white font-medium rounded-md border border-red-500 hover:bg-red-700 transition-colors duration-200">
+          Delete
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Card;

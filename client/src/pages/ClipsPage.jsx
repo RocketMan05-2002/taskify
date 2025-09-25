@@ -1,34 +1,36 @@
-import React from 'react'
+import React from 'react';
 import Card from '../components/Card';
 
-const ClipsPage = () =>{
-    // const { clips, currentUser } = AuthContext; 
-    // todos ko yaha map karna h bas.
-    // demo data
-    const clips = [
-        {id:1, clipHeading:"Learn Java", clipDescription:"Look up for some good java learning videos to hone java concepts to have clarity of what we are coding."},
-        {id:2, clipHeading:"Learn Maven", clipDescription:"Look up for some good java learning videos to hone java concepts to have clarity of what we are coding."},
-        {id:3, clipHeading:"Learn Spring", clipDescription:"Look up for some good java learning videos to hone java concepts to have clarity of what we are coding."},
-        {id:4, clipHeading:"Learn Springboot", clipDescription:"Look up for some good java learning videos to hone java concepts to have clarity of what we are coding."},
-        {id:5, clipHeading:"Learn Docker", clipDescription:"Look up for some good java learning videos to hone java concepts to have clarity of what we are coding."},
-    ]
-    const currentUser = "Abhi";
-    return (
-        <div className='text-white  bg-amber-200 h-screen p-2'>
-            <div className="bg-red-900 border-2 border-gray-950">
-                <h1 className='p-4 text-3xl'>{currentUser}'s Clips</h1>
-            </div>
-            <div className='grid grid-cols-4 gap-4 mt-2'>
-                {
-                    clips.map((clip,ind)=>{
-                        return <div key={clip.id}>
-                            <Card clipHeading={clip.clipHeading} clipDescription={clip.clipDescription} />
-                        </div>
-                    })
-                }
-            </div>
-        </div>
-    )
-}
+const ClipsPage = () => {
+  const clips = [
+    {id:1, clipHeading:"Learn Java", clipDescription:"Look up some good Java learning videos to hone concepts."},
+    {id:2, clipHeading:"Learn Maven", clipDescription:"Look up some good Maven tutorials to master build tools."},
+    {id:3, clipHeading:"Learn Spring", clipDescription:"Explore Spring framework to understand dependency injection."},
+    {id:4, clipHeading:"Learn Springboot", clipDescription:"Learn Spring Boot for rapid backend development."},
+    {id:5, clipHeading:"Learn Docker", clipDescription:"Check out Docker tutorials to containerize your apps."},
+  ];
+  const currentUser = "Abhi";
+
+  return (
+    <div className="min-h-screen p-6 bg-gray-900 text-white">
+      
+      {/* Header */}
+      <div className="mb-6 p-4 bg-gray-800 border border-gray-700 rounded-xl shadow-md">
+        <h1 className="text-3xl font-bold text-gray-200">{currentUser}'s Tasks</h1>
+      </div>
+
+      {/* Clips Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 ">
+        {clips.map((clip) => (
+          <Card 
+            key={clip.id} 
+            clipHeading={clip.clipHeading} 
+            clipDescription={clip.clipDescription} 
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default ClipsPage;
