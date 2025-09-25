@@ -1,10 +1,10 @@
 package com.todo2.taskify3.controller;
 
+import com.todo2.taskify3.entities.Clip;
 import com.todo2.taskify3.entities.ClipStatus;
 import com.todo2.taskify3.entities.User;
 import com.todo2.taskify3.service.clipService;
 import com.todo2.taskify3.service.userService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ public class userController {
 
     @PostMapping("/addUser")
     public ResponseEntity<User> addUser(@RequestBody User u) {
-        User savedUser = service.adduser(u);
+        User savedUser = service.addUser(u);
         return ResponseEntity.ok(savedUser);
     }
 
@@ -47,4 +47,19 @@ public class userController {
         clipService.updateClip(id, status);
         return ResponseEntity.ok("Clip status updated successfully to: " + status);
     }
+
+
+    @GetMapping("/getAllClips/{userId}")
+    public List<Clip> getAllClipsForUser(@PathVariable("userId") String userId){
+
+        return clipService.getAllClipsForUser(userId);
+    }
+
+
+    @PostMapping("/addClip")
+    public Clip addClipForUser(@RequestBody Clip clip){
+        return clipService.addClip(clip);
+    }
+
+
 }
