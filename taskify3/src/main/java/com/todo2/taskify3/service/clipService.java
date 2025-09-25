@@ -15,51 +15,60 @@ import com.todo2.taskify3.repository.clipRepo;
 @Service
 public class clipService {
     @Autowired
-    clipRepo clip; // kyuki this is clipservice, isiliye khudka repo
+    clipRepo clipRepo; // kyuki this is clipservice, isiliye khudka repo
 
     @Autowired
-    userService msvc; // here, we have to call the service. functions bhi use kar sakenge
+    userService userService; // here, we have to call the service. functions bhi use kar sakenge
 
 
     // add a clip-todo
-    public Clip addClip(Clip c){
-        Clip newClip = new Clip();
-        newClip.setHeading(c.getHeading());
-        newClip.setDescription(c.getDescription());
-        newClip.setStatus(c.getStatus());
-        try {
-            clip.save(newClip);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-         //new user saved at database
-        return newClip;
+    public Clip addClip(Clip c) {
+        // save clip independently
+        Clip savedClip = clipRepo.save(c);
+
+        // also attach to user
+        User user = userService.getUser(c.getUserId());
+        user.getClips().add(savedClip);
+        userService.saveUser(user);
+
+        return savedClip;
     }
 
-    // get all clips
-    public List<Clip> getAllClipsForAUser(String userId){
-        User user = msvc.getUser(userId);
-        return user.getClips();
+    // 📖 Read all clips for a given user
+    public List<Clip> getAllClipsForUser(String userId) {
+        return userService.getUser(userId).getClips();
     }
 
-    //delete clip
-    public void deleteClip(String clipId){
-        if (clip.existsById(clipId)) {
-            clip.deleteById(clipId);
-        } else {
-            throw new RuntimeException("Clip not found with id: " + clipId);
-        }
+    // 📖 Read single clip
+    public Clip getClipById(String clipId) {
+        return clipRepo.findById(clipId)
+                .orElseThrow(() -> new RuntimeException("Clip not found with id: " + clipId));
     }
 
+    // ✏️ Update
     public void updateClip(String clipId, ClipStatus status) {
-        Optional<Clip> clipOptional = clip.findById(clipId);
+        Optional<Clip> clipOptional = clipRepo.findById(clipId);
 
         if (clipOptional.isPresent()) {
             Clip c = clipOptional.get();
             c.setStatus(status);  // update status
-            clip.save(c); // persist changes
+            clipRepo.save(c); // persist changes
         } else {
             throw new RuntimeException("Clip not found with id: " + clipId);
         }
+    }
+
+    // 🗑️ Delete
+    public void deleteClip(String clipId) {
+        Clip clip = clipRepo.findById(clipId)
+                .orElseThrow(() -> new RuntimeException("Clip not found with id: " + clipId));
+
+        // remove from Clip collection
+        clipRepo.deleteById(clipId);
+
+        // also remove from User.clips
+        User user = userService.getUser(clip.getUserId());
+        user.getClips().removeIf(c -> c.getId().equals(clipId));
+        userService.saveUser(user);
     }
 }
