@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { ClipContext } from '../../context/ClipContext';
 
-const Card = ({ clipHeading, clipDescription = "Complete this todo asap" }) => {
+const Card = ({ clipHeading, clipDescription = "Complete this todo asap", clipId, onDelete}) => {
   const [status, setStatus] = useState("start");
+
+  const { updateAClip, deleteAClip, getClipsForAUser } = useContext(ClipContext);
 
   const handleToggle = (newStatus) => {
     if (status === 'start' || status !== newStatus) {
@@ -28,24 +31,37 @@ const Card = ({ clipHeading, clipDescription = "Complete this todo asap" }) => {
       <div className="flex justify-between items-center gap-2 mt-2">
         <div className="flex bg-gray-700 rounded-full overflow-hidden border border-gray-600">
           <button
-            className={`px-4 py-1 transition-all duration-200 font-medium 
+            className={`cursor-pointer px-4 py-1 transition-all duration-200 font-medium 
               ${status === 'done' ? 'bg-green-500 text-black' : 'text-gray-300'}`}
-            onClick={() => handleToggle('done')}
+            onClick={()=>{
+              handleToggle('done');
+              updateAClip(clipId,"DONE");
+            }}
           >
             Done
           </button>
           <button
-            className={`px-4 py-1 transition-all duration-200 font-medium 
+            className={`cursor-pointer px-4 py-1 transition-all duration-200 font-medium 
               ${status === 'pending' ? 'bg-yellow-500 text-black' : 'text-gray-300'}`}
-            onClick={() => handleToggle('pending')}
+            onClick={() => {
+              handleToggle('pending');
+              updateAClip(clipId,"PENDING");
+            }}
           >
             Pending
           </button>
         </div>
 
-        <button className="px-3 py-1 bg-red-600 text-white font-medium rounded-md border border-red-500 hover:bg-red-700 transition-colors duration-200">
-          Delete
-        </button>
+        <button 
+  onClick={() => {
+    deleteAClip(clipId).then(() => {
+      if (onDelete) onDelete();  // refresh list after delete
+    });
+  }}
+  className="cursor-pointer px-3 py-1 bg-red-600 text-white font-medium rounded-md border border-red-500 hover:bg-red-700 transition-colors duration-200"
+>
+  Delete
+</button>
       </div>
     </div>
   );

@@ -33,9 +33,9 @@ public class userController {
     }
 
     @DeleteMapping("/delete/clip/{id}")
-    public ResponseEntity<String> deleteClip(@PathVariable("id") String id) {
+    public String deleteClip(@PathVariable("id") String id) {
         clipService.deleteClip(id);
-        return ResponseEntity.ok("Clip deleted successfully with id: " + id);
+        return "Clip deleted successfully with id: " + id;
     }
 
 

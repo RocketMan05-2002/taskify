@@ -1,6 +1,7 @@
 package com.todo2.taskify3.service;
 
 import com.todo2.taskify3.entities.User;
+import com.todo2.taskify3.repository.clipRepo;
 import com.todo2.taskify3.repository.userRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,9 @@ public class userService {
 
     @Autowired
     private userRepo repo;
+
+    @Autowired
+    private clipRepo clipr;
 
     // ➕ Create
     public User addUser(User user) {
@@ -52,6 +56,7 @@ public class userService {
     public void deleteUser(String userId) {
         if (repo.existsById(userId)) {
             repo.deleteById(userId);
+            clipr.deleteByUserId(userId);
         } else {
             throw new RuntimeException("User not found with id: " + userId);
         }
