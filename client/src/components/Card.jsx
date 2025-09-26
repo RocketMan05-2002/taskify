@@ -4,7 +4,7 @@ import { ClipContext } from '../../context/ClipContext';
 const Card = ({ clipHeading, clipDescription = "Complete this todo asap", clipId, onDelete}) => {
   const [status, setStatus] = useState("start");
 
-  const { updateAClip, deleteAClip, getClipsForAUser } = useContext(ClipContext);
+  const { updateAClip, deleteAClip } = useContext(ClipContext);
 
   const handleToggle = (newStatus) => {
     if (status === 'start' || status !== newStatus) {
@@ -33,9 +33,9 @@ const Card = ({ clipHeading, clipDescription = "Complete this todo asap", clipId
           <button
             className={`cursor-pointer px-4 py-1 transition-all duration-200 font-medium 
               ${status === 'done' ? 'bg-green-500 text-black' : 'text-gray-300'}`}
-            onClick={()=>{
-              handleToggle('done');
-              updateAClip(clipId,"DONE");
+            onClick={async()=>{
+              await updateAClip(clipId,"DONE");
+              handleToggle('DONE');
             }}
           >
             Done
@@ -43,9 +43,9 @@ const Card = ({ clipHeading, clipDescription = "Complete this todo asap", clipId
           <button
             className={`cursor-pointer px-4 py-1 transition-all duration-200 font-medium 
               ${status === 'pending' ? 'bg-yellow-500 text-black' : 'text-gray-300'}`}
-            onClick={() => {
-              handleToggle('pending');
-              updateAClip(clipId,"PENDING");
+            onClick={async () => {
+              await updateAClip(clipId,"PENDING");
+              handleToggle('PENDING');
             }}
           >
             Pending

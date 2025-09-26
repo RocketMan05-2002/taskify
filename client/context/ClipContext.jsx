@@ -26,8 +26,8 @@ export const ClipProvider = ({children}) =>{
     // delete a clip
     const deleteAClip = async(clipId)=>{
         try{
-            const { message } = await axios.delete(`/todo/delete/clip/${clipId}`);
-            toast.success(message);
+            const response = await axios.delete(`/todo/delete/clip/${clipId}`);
+            toast.success(response.message);
         }catch(err){
             toast.error(err.message);
         }
@@ -37,8 +37,8 @@ export const ClipProvider = ({children}) =>{
     const updateAClip = async(clipId, status)=>{
         try{
             // "http://localhost:8080/todo/update/clip/123?status=ACTIVE"
-            const { message } = await axios.put(`/todo/update/clip/${clipId}?status=${status}`);
-            toast.success(message);
+            const response = await axios.put(`/todo/update/clip/${clipId}?status=${status}`);
+            toast.success(response.message);
         }catch(err){
             toast.error(err.message);
         }
