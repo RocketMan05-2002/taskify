@@ -27,6 +27,8 @@ export const ClipProvider = ({children}) =>{
     const deleteAClip = async(clipId)=>{
         try{
             const response = await axios.delete(`/todo/delete/clip/${clipId}`);
+            // update state immediately
+            setClips(prev => prev.filter(c => c.id !== clipId));
             toast.success(response.message);
         }catch(err){
             toast.error(err.message);
@@ -57,6 +59,7 @@ export const ClipProvider = ({children}) =>{
 
     const value = {
         clips,
+        setClips,
         getClipsForAUser,
         deleteAClip,
         updateAClip,

@@ -1,10 +1,15 @@
-import React from 'react';
+import React from "react";
 
 const UserSlab = ({ userName, noOfPendingTasks = 3 }) => {
   return (
-    <div className="flex justify-between items-center w-[80%] px-4 py-3 bg-gray-800/40 backdrop-blur-md border border-gray-700 rounded-2xl shadow-md hover:shadow-lg transition-all duration-200 hover:scale-101 cursor-pointer">
-      <h1 className="text-gray-200 font-medium text-lg">{userName}</h1>
-      <span className="flex justify-center items-center w-6 h-6 rounded-full bg-yellow-300 text-black font-semibold">
+    <div className="flex justify-between items-center w-full px-5 py-4 bg-white/10 backdrop-blur-lg border border-gray-700 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-200 cursor-pointer">
+      {/* User Name */}
+      <h1 className="text-lg font-semibold bg-gradient-to-r from-green-300 to-blue-400 bg-clip-text text-transparent drop-shadow">
+        {userName}
+      </h1>
+
+      {/* Pending Tasks Badge */}
+      <span className="flex justify-center items-center w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold shadow-md">
         {noOfPendingTasks}
       </span>
     </div>
